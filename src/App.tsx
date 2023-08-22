@@ -14,6 +14,8 @@ import CounterPage from "./components/CounterPage";
 import { CounterProvider } from "./providers/CounterProvider";
 import CounterXPage from "./components/CounterXPage";
 import { memo } from "react";
+import { ProjectProvider } from "./providers/ProjectProvider";
+import ProjectDetail from "./components/ProjectDetail";
 
 const ErrorBoundary = () => {
   const error = useRouteError() as Error;
@@ -54,13 +56,16 @@ const App = () => {
         />
         <Route path="/counter/:counterNumber?" element={<CounterPage />} />
         <Route path="/counterX/:counterNumber?" element={<CounterXPage />} />
+        <Route path="/project/:projectId?" element={<ProjectDetail />} />
       </Route>
     )
   );
   return (
     <div style={{ height: "100vh", padding: 16 }}>
       <CounterProvider>
-        <RouterProvider router={router} />
+        <ProjectProvider defaultProject={4}>
+          <RouterProvider router={router} />
+        </ProjectProvider>
       </CounterProvider>
     </div>
   );

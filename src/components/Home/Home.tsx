@@ -7,8 +7,10 @@ import { type UserInfo } from "@/types";
 import { THEME_INFO, USER_INFO } from "@/constant/api";
 import { observer } from "mobx-react";
 import { useCounter } from "@/providers/CounterProvider";
-import { Button, Card, Col, Input, Row, Space } from "antd";
+import { Button, Card, Col, Input, Row, Select, Space } from "antd";
 import { useTheme } from "@/providers/ThemeProvider";
+import { useProject } from "@/providers/ProjectProvider";
+import ProjectList from "../ProjectList";
 
 const postUserInfo = async () => {
   return await new Promise<boolean>((resolve) => {
@@ -42,6 +44,8 @@ const Home = () => {
 
   // 不要解构使用action 等方法
   const counterStore = useCounter();
+
+  const { projectList, projectInfo, changeProject } = useProject();
 
   const queryClient = useQueryClient();
   // 修改
@@ -95,7 +99,7 @@ const Home = () => {
   }, [counterStore.value]);
 
   const navLinkClass = useCallback(
-    ({ isActive, isPending }) =>
+    ({ isActive, isPending }: { isActive: boolean; isPending: boolean }) =>
       isPending ? "pending" : isActive ? "active" : "",
     []
   );
@@ -124,6 +128,17 @@ const Home = () => {
                 </NavLink>
               </Button>
             </Space>
+            <Card style={{ marginTop: 10 }}>
+              项目选择 :
+              <Select
+                value={projectInfo.id ? projectInfo.id : undefined}
+                options={projectList.map((p) => ({
+                  value: p.id,
+                  label: p.name,
+                }))}
+                onChange={changeProject}
+              />
+            </Card>
           </Col>
           <Col span={7}>
             <Space wrap>
@@ -241,6 +256,9 @@ const Home = () => {
             </Space>
           </Col>
         </Row>
+      </Card>
+      <Card bodyStyle={{ background, color: "pink" }} style={{ marginTop: 20 }}>
+        <ProjectList />
       </Card>
       <Card bodyStyle={{ background, color: "pink" }} style={{ marginTop: 20 }}>
         <Outlet />
