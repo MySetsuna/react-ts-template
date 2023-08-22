@@ -16,6 +16,7 @@ import CounterXPage from "./components/CounterXPage";
 import { memo } from "react";
 import { ProjectProvider } from "./providers/ProjectProvider";
 import ProjectDetail from "./components/ProjectDetail";
+import ProjectDetailMobx from "./components/ProjectDetail/ProjectDetailMobx";
 
 const ErrorBoundary = () => {
   const error = useRouteError() as Error;
@@ -58,6 +59,10 @@ const App = () => {
         <Route path="/counter/:counterNumber?" element={<CounterPage />} />
         <Route path="/counterX/:counterNumber?" element={<CounterXPage />} />
         <Route path="/project/:projectId?" element={<ProjectDetail />} />
+        <Route
+          path="/project-mobx/:projectId?"
+          element={<ProjectDetailMobx />}
+        />
       </Route>
     )
   );

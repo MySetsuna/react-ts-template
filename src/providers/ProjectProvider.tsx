@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   ReactNode,
   createContext,
@@ -26,48 +26,72 @@ type ContextValue = {
   projectInfo: Project;
   changeProject: (pid: number) => void;
   infoLoading: boolean;
+  clearMembers: () => void;
 };
 
-const mockProjectList = [
-  {
-    id: 1,
-    name: "项目一",
-    owner: "Jack",
-    members: ["Jack", "John"],
-  },
-  {
-    id: 2,
-    name: "项目二",
-    owner: "Jack",
-    members: ["Jack"],
-  },
-  {
-    id: 3,
-    name: "项目三",
-    owner: "John",
-    members: ["Jack", "John"],
-  },
-];
+window.clear = false;
+const mockProjectList = () =>
+  !window.clear
+    ? [
+        {
+          id: 1,
+          name: "项目一",
+          owner: "Jack",
+          members: ["Jack", "John"],
+        },
+        {
+          id: 2,
+          name: "项目二",
+          owner: "Jack",
+          members: ["Jack"],
+        },
+        {
+          id: 3,
+          name: "项目三",
+          owner: "John",
+          members: ["Jack", "John"],
+        },
+      ]
+    : [
+        {
+          id: 1,
+          name: "项目一",
+          owner: "Jack",
+          members: [],
+        },
+        {
+          id: 2,
+          name: "项目二",
+          owner: "Jack",
+          members: [],
+        },
+        {
+          id: 3,
+          name: "项目三",
+          owner: "John",
+          members: [],
+        },
+      ];
 
-const getProjectInfo = (projectId: number) => {
+export const getProjectInfo = (projectId: number) => {
   console.log("请求Project*****************", projectId);
 
   return new Promise<Project>((resolve) => {
     setTimeout(() => {
-      const project = mockProjectList.find(({ id }) => id === projectId);
+      const project = mockProjectList().find(({ id }) => id === projectId);
       if (project) {
         resolve(project);
       } else {
         resolve({ id: projectId });
       }
-    }, 1000);
+    }, 100);
   });
 };
 
 const getProjectList = () => {
   return new Promise<Project[]>((resolve) => {
     setTimeout(() => {
-      resolve(mockProjectList);
+      resolve(mockProjectList());
     }, 100);
   });
 };
@@ -111,9 +135,36 @@ const ProjectProvider = (props: Props) => {
     setProjectId(pid);
   }, []);
 
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation<boolean, Error, Project[]>({
+    mutationFn: () => Promise.resolve(true),
+    onSuccess: () => {
+      // 错误处理和刷新
+      // 从后台获取
+      window.clear = !window.clear;
+      queryClient.invalidateQueries(["project-list"]);
+      queryClient.invalidateQueries(["project-info", projectId]);
+      // 前端直接改
+      //   queryClient.setQueryData<Project[]>(["project-list"], (old) =>
+      //     mockProjectList.map((item) => ({ ...item, members: [] }))
+      //   );
+    },
+  });
+
+  const clearMembers = useCallback(() => {
+    mutation.mutate([]);
+  }, [mutation]);
+
   const contextValue = useMemo(() => {
-    return { projectList, projectInfo, changeProject, infoLoading: isLoading };
-  }, [projectList, projectInfo, isLoading]);
+    return {
+      projectList,
+      projectInfo,
+      changeProject,
+      infoLoading: isLoading,
+      clearMembers,
+    };
+  }, [projectList, projectInfo, isLoading, clearMembers]);
 
   return (
     <ProjectContext.Provider value={contextValue}>

@@ -10,7 +10,7 @@ const ProjectDetail = () => {
   const { projectInfo, infoLoading } = useProject();
   return (
     <>
-      <div>ProjectDetail</div>
+      <div style={{ fontSize: 20, color: "lightsalmon" }}>ProjectDetail</div>
       <Spin spinning={infoLoading}>
         <div style={{ fontSize: 50, textAlign: "center", color: "wheat" }}>
           <span style={{ fontSize: 100 }}> {projectInfo.name}</span>
