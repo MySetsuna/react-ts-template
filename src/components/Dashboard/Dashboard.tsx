@@ -6,7 +6,7 @@ const Dashboard = () => {
   const { id } = useParams();
   return (
     <div>
-      Dashboard:{id}
+      <span style={{ fontSize: 100 }}>Dashboard:{id}</span>
       <br />
       User: {JSON.stringify(userInfo)}
     </div>
