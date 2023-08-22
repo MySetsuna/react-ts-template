@@ -39,6 +39,7 @@ const App = () => {
           </>
         }
       >
+        <Route index element={<div style={{ fontSize: 150 }}>Welcome!</div>} />
         <Route
           path="/dashboard/:id"
           element={<Dashboard />}

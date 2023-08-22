@@ -110,23 +110,17 @@ const Home = () => {
         <Row gutter={18}>
           <Col span={7}>
             <Space wrap>
-              <Button>
-                <NavLink className={navLinkClass} to="/dashboard/1">
-                  dashboard1
-                </NavLink>
-              </Button>
+              <NavLink className={navLinkClass} to="/dashboard/1">
+                <Button>dashboard1</Button>
+              </NavLink>
               <br />
-              <Button>
-                <NavLink className={navLinkClass} to="/dashboard/2">
-                  dashboard2
-                </NavLink>
-              </Button>
+              <NavLink className={navLinkClass} to="/dashboard/2">
+                <Button>dashboard2</Button>
+              </NavLink>
               <br />
-              <Button>
-                <NavLink className={navLinkClass} to="/">
-                  返回
-                </NavLink>
-              </Button>
+              <NavLink className={navLinkClass} to="/">
+                <Button>返回</Button>
+              </NavLink>
             </Space>
             <Card style={{ marginTop: 10 }}>
               项目选择 :
@@ -219,14 +213,12 @@ const Home = () => {
                     }
                   }}
                 />
-                <Button>
-                  <NavLink
-                    className={navLinkClass}
-                    to={`/counter/${counterNumber}`}
-                  >
-                    跳转
-                  </NavLink>
-                </Button>
+                <NavLink
+                  className={navLinkClass}
+                  to={`/counter/${counterNumber}`}
+                >
+                  <Button>跳转</Button>
+                </NavLink>
               </div>
               <div>
                 <span>跳转CounterXPage(领域/全局mobx) : </span>
@@ -244,14 +236,12 @@ const Home = () => {
                     }
                   }}
                 />
-                <Button>
-                  <NavLink
-                    className={navLinkClass}
-                    to={`/counterX/${counterXNumber}`}
-                  >
-                    跳转
-                  </NavLink>
-                </Button>
+                <NavLink
+                  className={navLinkClass}
+                  to={`/counterX/${counterXNumber}`}
+                >
+                  <Button>跳转</Button>
+                </NavLink>
               </div>
             </Space>
           </Col>
