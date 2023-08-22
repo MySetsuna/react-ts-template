@@ -84,7 +84,7 @@ export const getProjectInfo = (projectId: number) => {
       } else {
         resolve({ id: projectId });
       }
-    }, 100);
+    }, 500);
   });
 };
 
