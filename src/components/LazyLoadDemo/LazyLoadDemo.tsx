@@ -91,7 +91,15 @@ const LazyLoadDemo = () => {
       <Suspense fallback={<Spin />}>
         <Outlet />
       </Suspense>
-      <Suspense fallback={<Spin>加载中</Spin>}>
+      <Suspense
+        fallback={
+          <Spin>
+            <div style={{ fontSize: 30, height: 100, textAlign: "center" }}>
+              加载中
+            </div>
+          </Spin>
+        }
+      >
         {drawerOpen2 && <TestDrawer2 />}
         {drawerOpen && (
           <TestDrawer open={drawerOpen} onClose={() => setDrawerOpen(false)} />
