@@ -9,6 +9,7 @@ const ProjectList = () => {
   const { pathname } = useLocation();
   return (
     <div style={{ display: "flex", gap: 15 }}>
+      react qurey 管理:
       {projectList.map((project: Project) => {
         return (
           <div
