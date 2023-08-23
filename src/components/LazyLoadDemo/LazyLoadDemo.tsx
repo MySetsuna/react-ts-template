@@ -1,12 +1,6 @@
-import { Button, MenuProps, Menu, Spin, Drawer } from "antd";
-import React, {
-  useCallback,
-  useState,
-  useEffect,
-  Suspense,
-  useTransition,
-} from "react";
-import { NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Button, MenuProps, Menu, Spin } from "antd";
+import React, { useState, Suspense } from "react";
+import { NavLink, Outlet, useLocation } from "react-router-dom";
 import "./LazyLoadDemo.less";
 const TestDrawer = React.lazy(
   () => import("./components/TestDrawer/TestDrawer")
@@ -98,12 +92,7 @@ const LazyLoadDemo = () => {
         <Outlet />
       </Suspense>
       <Suspense fallback={<Spin>加载中</Spin>}>
-        {drawerOpen2 && (
-          <TestDrawer2
-            open={drawerOpen2}
-            onClose={() => setDrawerOpen2(false)}
-          />
-        )}
+        {drawerOpen2 && <TestDrawer2 />}
         {drawerOpen && (
           <TestDrawer open={drawerOpen} onClose={() => setDrawerOpen(false)} />
         )}

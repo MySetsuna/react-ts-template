@@ -1,8 +1,4 @@
-import { Drawer } from "antd";
-
-type Props = { open: boolean; onClose: () => void };
-
-const TestDrawer2 = (props: Props) => {
+const TestDrawer2 = () => {
   // 增加延迟
   let startTime = 1000000000;
   while (startTime > 1) {
