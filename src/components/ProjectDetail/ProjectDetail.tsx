@@ -8,6 +8,7 @@ import { Spin } from "antd";
  */
 const ProjectDetail = () => {
   const { projectInfo, infoLoading } = useProject();
+
   return (
     <>
       <div style={{ fontSize: 20, color: "lightsalmon" }}>ProjectDetail</div>

@@ -105,12 +105,28 @@ const ProjectProvider = (props: Props) => {
     getProjectList()
   );
 
-  const { data: projectInfo = { id: projectId }, isLoading } =
-    useQuery<Project>(
-      ["project-info", projectId],
-      () => getProjectInfo(projectId),
-      { enabled: !!projectId }
-    );
+  const queryClient = useQueryClient();
+  const infoIsInvalidated = queryClient.getQueryState([
+    "project-info",
+    projectId,
+  ])?.isInvalidated;
+
+  const {
+    data: projectInfo = { id: projectId },
+    isLoading,
+    fetchStatus,
+  } = useQuery<Project>(
+    ["project-info", projectId],
+    () => getProjectInfo(projectId),
+    {
+      enabled:
+        (!!projectId &&
+          !queryClient.getQueryState(["project-info", projectId])?.data) ||
+        infoIsInvalidated === true,
+    }
+  );
+
+  console.log(fetchStatus, "fetchStatus");
 
   useEffect(() => {
     console.log(projectList, "projectList", projectInfo);
@@ -135,8 +151,6 @@ const ProjectProvider = (props: Props) => {
     setProjectId(pid);
   }, []);
 
-  const queryClient = useQueryClient();
-
   const mutation = useMutation<boolean, Error, Project[]>({
     mutationFn: () => Promise.resolve(true),
     onSuccess: () => {
@@ -144,7 +158,9 @@ const ProjectProvider = (props: Props) => {
       // 从后台获取
       window.clear = !window.clear;
       queryClient.invalidateQueries(["project-list"]);
-      queryClient.invalidateQueries(["project-info", projectId]);
+      projectList.forEach(({ id }) => {
+        queryClient.invalidateQueries(["project-info", id]);
+      });
       // 前端直接改
       //   queryClient.setQueryData<Project[]>(["project-list"], (old) =>
       //     mockProjectList.map((item) => ({ ...item, members: [] }))
@@ -161,10 +177,10 @@ const ProjectProvider = (props: Props) => {
       projectList,
       projectInfo,
       changeProject,
-      infoLoading: isLoading,
+      infoLoading: isLoading || !!infoIsInvalidated,
       clearMembers,
     };
-  }, [projectList, projectInfo, isLoading, clearMembers]);
+  }, [projectList, projectInfo, isLoading, clearMembers, infoIsInvalidated]);
 
   return (
     <ProjectContext.Provider value={contextValue}>
