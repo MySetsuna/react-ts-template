@@ -107,18 +107,21 @@ const Home = () => {
     <div>
       首页 用户:{userInfo?.name}
       <Card bodyStyle={{ background, color: "white" }}>
-        <Row gutter={18}>
+        <NavLink className={navLinkClass} to="/">
+          <Button>to React Lazy Demo</Button>
+        </NavLink>
+        <Row gutter={18} style={{ marginTop: 20 }}>
           <Col span={7}>
             <Space wrap>
-              <NavLink className={navLinkClass} to="/dashboard/1">
+              <NavLink className={navLinkClass} to="/home/dashboard/1">
                 <Button>dashboard1</Button>
               </NavLink>
               <br />
-              <NavLink className={navLinkClass} to="/dashboard/2">
+              <NavLink className={navLinkClass} to="/home/dashboard/2">
                 <Button>dashboard2</Button>
               </NavLink>
               <br />
-              <NavLink className={navLinkClass} to="/">
+              <NavLink className={navLinkClass} to="/home">
                 <Button>返回</Button>
               </NavLink>
             </Space>
@@ -209,13 +212,13 @@ const Home = () => {
                   }}
                   onKeyDown={(e) => {
                     if (e.code === "Enter") {
-                      navigate(`/counter/${counterNumber}`);
+                      navigate(`/home/counter/${counterNumber}`);
                     }
                   }}
                 />
                 <NavLink
                   className={navLinkClass}
-                  to={`/counter/${counterNumber}`}
+                  to={`/home/counter/${counterNumber}`}
                 >
                   <Button>跳转</Button>
                 </NavLink>
@@ -232,13 +235,13 @@ const Home = () => {
                   }}
                   onKeyDown={(e) => {
                     if (e.code === "Enter") {
-                      navigate(`/counterX/${counterXNumber}`);
+                      navigate(`/home/counterX/${counterXNumber}`);
                     }
                   }}
                 />
                 <NavLink
                   className={navLinkClass}
-                  to={`/counterX/${counterXNumber}`}
+                  to={`/home/counterX/${counterXNumber}`}
                 >
                   <Button>跳转</Button>
                 </NavLink>
