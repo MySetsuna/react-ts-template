@@ -149,14 +149,14 @@ const columns = [
   { title: "F", dataIndex: "key", width: 100 },
 ];
 
-const data = Array.from({ length: 1000000 }, (_, key) => ({ key }));
+const data = Array.from({ length: 100 }, (_, key) => ({ key }));
 
 const StoryList = () => {
   // 增加延迟
-  const startTime = performance.now();
-  while (performance.now() - startTime < 1) {
-    // Do nothing for 1 ms per item to emulate extremely slow code
-  }
+  // const startTime = performance.now();
+  // while (performance.now() - startTime < 1) {
+  //   // Do nothing for 1 ms per item to emulate extremely slow code
+  // }
   return (
     <VirtualTable
       columns={columns}
