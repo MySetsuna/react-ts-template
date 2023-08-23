@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import classNames from "classnames";
 import ResizeObserver from "rc-resize-observer";
 import React, { useEffect, useRef, useState } from "react";

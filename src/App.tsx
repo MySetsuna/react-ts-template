@@ -7,18 +7,26 @@ import {
   RouterProvider,
   useRouteError,
 } from "react-router-dom";
-import Home from "./components/Home/Home";
 import { useAuth } from "./providers";
-import Dashboard from "./components/Dashboard";
 import "./App.less";
-import CounterPage from "./components/CounterPage";
 import { CounterProvider } from "./providers/CounterProvider";
-import CounterXPage from "./components/CounterXPage";
-import React, { memo } from "react";
+import React, { memo, Suspense } from "react";
 import { ProjectProvider } from "./providers/ProjectProvider";
-import ProjectDetail from "./components/ProjectDetail";
-import ProjectDetailMobx from "./components/ProjectDetail/ProjectDetailMobx";
-import LazyLoadDemo from "./components/LazyLoadDemo";
+import { Spin } from "antd";
+
+const LazyLoadDemo = React.lazy(() => import("./components/LazyLoadDemo"));
+
+const Home = React.lazy(() => import("./components/Home/Home"));
+
+const Dashboard = React.lazy(() => import("./components/Dashboard"));
+
+const CounterPage = React.lazy(() => import("./components/CounterPage"));
+const CounterXPage = React.lazy(() => import("./components/CounterXPage"));
+const ProjectDetail = React.lazy(() => import("./components/ProjectDetail"));
+const ProjectDetailMobx = React.lazy(
+  () => import("./components/ProjectDetail/ProjectDetailMobx")
+);
+
 const StoryList = React.lazy(
   () => import("./components/LazyLoadDemo/components/StoryList/StoryList")
 );
@@ -102,7 +110,9 @@ const App = () => {
     <div style={{ height: "100vh", padding: 16 }}>
       <CounterProvider>
         <ProjectProvider defaultProject={4}>
-          <RouterProvider router={router} />
+          <Suspense fallback={<Spin />}>
+            <RouterProvider router={router} />
+          </Suspense>
         </ProjectProvider>
       </CounterProvider>
     </div>

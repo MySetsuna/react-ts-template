@@ -1,9 +1,14 @@
-import React from "react";
+import { Image } from "antd";
 
-type Props = {};
-
-const Manhour = (props: Props) => {
-  return <div>Manhour</div>;
+const Manhour = () => {
+  return (
+    <div>
+      Manhour
+      <Image src="/example.jpg" height={200} />
+      <Image src="/example4.jpg" height={200} />
+      <Image src="/example5.jpg" height={200} />
+    </div>
+  );
 };
 
 export default Manhour;

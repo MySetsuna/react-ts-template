@@ -1,9 +1,13 @@
-import React from "react";
+import { Image } from "antd";
 
-type Props = {};
-
-const Gantt = (props: Props) => {
-  return <div>Gantt</div>;
+const Gantt = () => {
+  return (
+    <div>
+      Gantt
+      <Image src="/example2.jpg" height={100} />
+      <Image src="/example3.jpg" height={100} />
+    </div>
+  );
 };
 
 export default Gantt;
