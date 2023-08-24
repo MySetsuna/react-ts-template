@@ -111,10 +111,6 @@ const ProjectProvider = (props: Props) => {
   );
 
   const queryClient = useQueryClient();
-  const infoIsInvalidated = queryClient.getQueryState([
-    "project-info",
-    projectId,
-  ])?.isInvalidated;
 
   const {
     data: projectInfo = { id: projectId },
@@ -124,10 +120,7 @@ const ProjectProvider = (props: Props) => {
     ["project-info", projectId],
     () => getProjectInfo(projectId),
     {
-      enabled:
-        (!!projectId &&
-          !queryClient.getQueryState(["project-info", projectId])?.data) ||
-        infoIsInvalidated === true,
+      enabled: !!projectId,
     }
   );
 
@@ -187,10 +180,10 @@ const ProjectProvider = (props: Props) => {
       projectList,
       projectInfo,
       changeProject,
-      infoLoading: isLoading || !!infoIsInvalidated,
+      infoLoading: isLoading,
       clearMembers,
     };
-  }, [projectList, projectInfo, isLoading, clearMembers, infoIsInvalidated]);
+  }, [projectList, projectInfo, isLoading, clearMembers]);
 
   return (
     <ProjectContext.Provider value={contextValue}>

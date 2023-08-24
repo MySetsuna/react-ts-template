@@ -13,12 +13,11 @@ export default defineConfig({
     chunkSplitPlugin({
       strategy: "default",
       customSplitting: {
-        // `react` and `react-dom` 会被打包到一个名为`render-vendor`的 chunk 里面(包括它们的一些依赖，如 object-assign)
-        // "react-vendor": ["react", "react-dom"],
         // 源码中 utils 目录的代码都会打包进 `utils` 这个 chunk 中
         utils: [/src\/utils/],
-        lazyLoadDemo: [/src\/components\/LazyLoadDemo/],
-        components: [/src\/components/],
+        // lazyLoadDemo: [/src\/components\/LazyLoadDemo/],
+        // 除了lazyLoadDemo 目录， components 目录下所有文件都打包到一起
+        components: [/src\/components\/(?!LazyLoadDemo)/],
         api: [/src\/api/],
         types: [/src\/types/],
         providers: [/src\/providers/],
@@ -45,7 +44,7 @@ export default defineConfig({
         // manualChunks,
       },
       treeshake: {
-        preset: "safest",
+        preset: "recommended",
         manualPureFunctions: ["console.log"],
       },
     },
