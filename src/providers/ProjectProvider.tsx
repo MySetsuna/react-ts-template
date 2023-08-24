@@ -99,7 +99,12 @@ const getProjectList = () => {
 const ProjectContext = createContext<ContextValue | undefined>(undefined);
 
 const ProjectProvider = (props: Props) => {
-  const [projectId, setProjectId] = useState(props.defaultProject ?? 0);
+  const id = location.href;
+  console.log(id);
+
+  const [projectId, setProjectId] = useState(
+    (Number(id) || props.defaultProject) ?? 0
+  );
 
   const { data: projectList = [] } = useQuery(["project-list"], () =>
     getProjectList()
@@ -129,23 +134,28 @@ const ProjectProvider = (props: Props) => {
   console.log(fetchStatus, "fetchStatus");
 
   useEffect(() => {
-    console.log(projectList, "projectList", projectInfo);
+    console.log(id, "id");
 
     if (!isLoading) {
       // case1 : 设置的项目ID不存在
-      if (projectInfo.id && !projectInfo.name && projectList?.length) {
+      if (!id && projectInfo.id && !projectInfo.name && projectList?.length) {
         console.log("进入ProjectProvider");
 
         setProjectId(projectList[0].id);
       }
 
       // case2: 没有设置默认项目ID
-      if (!props.defaultProject && projectList?.length && !projectInfo.name) {
+      if (
+        !id &&
+        !props.defaultProject &&
+        projectList?.length &&
+        !projectInfo.name
+      ) {
         console.log("进入ProjectProvider2");
         setProjectId(projectList[0].id);
       }
     }
-  }, [projectList, projectInfo, isLoading]);
+  }, [projectList, projectInfo, isLoading, id]);
 
   const changeProject = useCallback((pid: number) => {
     setProjectId(pid);
