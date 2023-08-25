@@ -1,4 +1,3 @@
-import { useAuth } from "@/providers";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Suspense, useCallback, useEffect, useState } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
@@ -6,10 +5,8 @@ import "./Home.less";
 import { type UserInfo } from "@/types";
 import { THEME_INFO, USER_INFO } from "@/constant/api";
 import { observer } from "mobx-react";
-import { useCounter } from "@/providers/CounterProvider";
 import { Button, Card, Col, Input, Row, Select, Space, Spin } from "antd";
-import { useTheme } from "@/providers/ThemeProvider";
-import { useProject } from "@/providers/ProjectProvider";
+import { useProject, useCounter, useTheme, useAuth } from "@/providers";
 import ProjectList from "../ProjectList";
 
 const postUserInfo = async () => {

@@ -2,7 +2,7 @@ import { runInAction } from "mobx";
 import { useEffect } from "react";
 import { useParams } from "react-router";
 import { observer } from "mobx-react";
-import { useCounter } from "@/providers/CounterProvider";
+import { useCounter } from "@/providers";
 import { Button } from "antd";
 
 // const counterStore = createCounter(0)

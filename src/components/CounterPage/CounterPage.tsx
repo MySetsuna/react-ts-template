@@ -3,7 +3,7 @@ import { runInAction } from "mobx";
 import { useEffect } from "react";
 import { useParams } from "react-router";
 import { observer, useLocalObservable } from "mobx-react";
-import { Counter } from "@/providers/CounterProvider";
+import { Counter } from "@/providers";
 import { Button } from "antd";
 
 // const counterStore = createCounter(0)

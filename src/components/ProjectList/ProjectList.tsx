@@ -1,4 +1,4 @@
-import { Project, useProject } from "@/providers/ProjectProvider";
+import { Project, useProject } from "@/providers";
 import { Button } from "antd";
 import { useLocation, useNavigate } from "react-router";
 

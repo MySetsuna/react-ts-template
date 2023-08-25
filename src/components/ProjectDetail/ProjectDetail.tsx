@@ -1,4 +1,4 @@
-import { useProject } from "@/providers/ProjectProvider";
+import { useProject } from "@/providers";
 import { Spin } from "antd";
 
 // const counterStore = createCounter(0)

@@ -9,9 +9,9 @@ import {
 } from "react-router-dom";
 import { useAuth } from "./providers";
 import "./App.less";
-import { CounterProvider } from "./providers/CounterProvider";
+import { CounterProvider } from "./providers";
 import React, { memo, Suspense } from "react";
-import { ProjectProvider } from "./providers/ProjectProvider";
+import { ProjectProvider } from "./providers";
 import { Spin } from "antd";
 
 const LazyLoadDemo = React.lazy(() => import("./components/LazyLoadDemo"));

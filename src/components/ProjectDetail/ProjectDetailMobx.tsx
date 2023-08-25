@@ -1,4 +1,4 @@
-import { Project, getProjectInfo } from "@/providers/ProjectProvider";
+import { Project, getProjectInfo } from "@/providers";
 import { Spin } from "antd";
 import { runInAction } from "mobx";
 import { observer, useLocalObservable } from "mobx-react";
