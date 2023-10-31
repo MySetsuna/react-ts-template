@@ -4,39 +4,50 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
+    "dev": "vite -m dev",
+    "build:watch": "tsc && vite build -w -m dev",
     "build:test": "vite build --mode test",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0 --fix",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "prepare": "husky install",
+    "ts-compile-check": "tsc --noEmit -p tsconfig.json"
   },
   "dependencies": {
     "@tanstack/react-query": "^4.33.0",
-    "antd": "^5.8.4",
+    "axios": "^1.5.1",
+    "events": "^3.3.0",
     "less": "^4.2.0",
-    "mobx": "^6.10.0",
-    "mobx-react": "^9.0.0",
+    "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router": "^6.15.0",
     "react-router-dom": "^6.15.0"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.197",
+    "@types/node": "^20.5.7",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
-    "@types/react-window": "^1.8.5",
     "@typescript-eslint/eslint-plugin": "^5.62.0",
     "@typescript-eslint/parser": "^5.62.0",
     "@vitejs/plugin-react": "^4.0.3",
+    "dayjs": "^1.11.9",
     "eslint": "^8.44.0",
-    "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.32.2",
-    "path": "^0.12.7",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^14.0.1",
     "prettier": "^2.8.8",
-    "react-window": "^1.8.9",
     "rollup-plugin-visualizer": "^5.9.2",
     "typescript": "^5.0.2",
-    "vite": "^4.4.5"
+    "vite": "^4.4.5",
+    "vite-plugin-chunk-split": "^0.4.7",
+    "vite-plugin-cssvg": "^2.0.0",
+    "vite-plugin-imp": "^2.4.0",
+    "vite-plugin-svgr": "^4.0.0"
+  },
+  "lint-staged": {
+    "src/**/*.{js,json,jsx,ts,tsx}": "eslint --fix --cache"
   }
 }
